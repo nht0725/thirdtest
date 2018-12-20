@@ -18,16 +18,17 @@ body {
     header {
         width: 100%;
         height: 140px;
+        overflow: hidden;
+        display: flex;
         ul {
             height: 100%;
             display: flex;
+            width: auto;
             li {
-                display: flex;
-                flex-direction: column;
-                width: 60px;
-                height: 60px;
+                flex-shrink: 0;
+                width: 80px;
+                height: 100%;
                 text-align: center;
-                margin-right: 20px;
             }
         }
     }

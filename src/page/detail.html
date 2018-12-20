@@ -13,7 +13,7 @@
     <div class="wrap">
         <header>
             <ul>
-                <li>
+                <!-- <li>
                     <span>今天</span><span>12-17</span>
                 </li>
                 <li>
@@ -27,21 +27,45 @@
                 </li>
                 <li>
                     <span>今天</span><span>12-17</span>
-                </li>
+                </li> -->
             </ul>
         </header>
     </div>
     <script src="../js/jquery-3.1.1.min.js"></script>
+    <script src="../js/moment.js"></script>
+    <script src="../js/better-scroll.js"></script>
     <script>
-        var date = location.search.slice('1');
-        $.ajax({
-            url: '/api/get/train_tickets',
-            data: {
-                date: date
-            },
-            success: function(res) {
-                console.log(res);
-            }
+        var arr = location.search.slice('1').split('&');
+        var date = arr[0].split('=')[1];
+        var str = '';
+        var time = new Date('2018-' + date).getTime();
+        // console.log(time)
+        for (var i = 0; i < 15; i++) {
+            str += `<li><span>${moment(time+86400*1000*i).format('MM-DD')}</span></li>`;
+        }
+        $('ul').html(str);
+        var startCity = decodeURI(arr[1].split('=')[1]);
+        var endCity = decodeURI(arr[2].split('=')[1]);
+
+        $('ul').on('click', 'li', function() {
+            var dat = $(this).text();
+            console.log(dat);
+            $.ajax({
+                url: '/users/api/gettrain',
+                data: {
+                    date: '2018-' + dat
+                },
+                success: function(res) {
+                    console.log(res);
+                }
+            })
+        })
+
+        var BS = new BScroll('header', {
+            probeType: 2,
+            click: true,
+            scrollX: true,
+            scrollY: false
         })
     </script>
 </body>

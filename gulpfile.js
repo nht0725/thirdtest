@@ -15,8 +15,8 @@ gulp.task('server', function() {
         .pipe(server({
             port: 9090,
             proxies: [{
-                source: '/users/api/get/train_tickets',
-                target: 'http://localhost:3000/users/api/get/train_tickets'
+                source: '/users/api/gettrain',
+                target: 'http://localhost:3000/users/api/gettrain'
             }]
         }))
 })
